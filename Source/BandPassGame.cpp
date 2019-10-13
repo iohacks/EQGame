@@ -26,9 +26,13 @@ BandPassGame::~BandPassGame()
     }
 }
 
+bool BandPassGame::isStarted() {
+    return started;
+}
+
 void BandPassGame::start()
 {
-    int index = random.nextInt(6);
+    int index = random.nextInt(7);
     currentFreq = freqList[index];
 
     for(int lc=0; lc<filters.size(); lc++) {

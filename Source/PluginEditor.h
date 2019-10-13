@@ -32,4 +32,7 @@ private:
     GoldenEarsEqAudioProcessor& processor;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (GoldenEarsEqAudioProcessorEditor)
+    TextButton btnStart;
+    Label lblResult;
+    Array<TextButton*> btnFreqList;
 };

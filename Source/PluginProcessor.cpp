@@ -99,7 +99,6 @@ void GoldenEarsEqAudioProcessor::prepareToPlay (double sampleRate, int samplesPe
     // Use this method as the place to do any pre-playback
     // initialisation that you need..
     bandPassGame.setSampleRate(sampleRate);
-    bandPassGame.start();
 }
 
 void GoldenEarsEqAudioProcessor::releaseResources()
@@ -161,8 +160,7 @@ bool GoldenEarsEqAudioProcessor::hasEditor() const
 
 AudioProcessorEditor* GoldenEarsEqAudioProcessor::createEditor()
 {
-    return new GenericAudioProcessorEditor(*this);
-    //return new GoldenEarsEqAudioProcessorEditor (*this);
+    return new GoldenEarsEqAudioProcessorEditor (*this);
 }
 
 //==============================================================================

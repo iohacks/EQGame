@@ -24,6 +24,7 @@ public:
     float getAnswer();
     float getCurrentFreq();
     void start();
+    bool isStarted();
     void setAnswer(float freq);
 
     // For Processor
