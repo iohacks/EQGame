@@ -57,7 +57,7 @@ public:
     void setStateInformation (const void* data, int sizeInBytes) override;
 
     //==============================================================================
-    BandPassGame bandPassGame = BandPassGame(2);
+    BandPassGame bandPassGame {2};
     AudioParameterFloat* makeUpGain;
 
 private:

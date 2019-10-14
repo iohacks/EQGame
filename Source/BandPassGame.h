@@ -15,16 +15,21 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 
+typedef struct {
+    float freq;
+    float totalWins;
+    float totalAttempts;
+} SummaryItem;
+
 class BandPassGame {
 public:
     BandPassGame(int numChannels);
     ~BandPassGame();
     // For Editor
-    float* getFreqList();
+    Array<float> getFreqList();
     float getAnswer();
     float getCurrentFreq();
-    void start();
-    bool isStarted();
+    void start();bool isStarted();
     void setAnswer(float freq);
 
     // For Processor
@@ -36,9 +41,10 @@ private:
     bool started = false;
     float answeredFreq = 0.0f;
     float currentFreq = 0.0f;
-    float freqList[7] = {125.0f, 250.0f, 500.0f, 1000.0f, 2000.0f, 4000.0f, 8000.0f};
-    Random random;
+    Array<float> freqList = {125.0f, 250.0f, 500.0f, 1000.0f, 2000.0f, 4000.0f, 8000.0f};
+    Random random {Time::currentTimeMillis()};
     float sampleRate;
+    HashMap<float, SummaryItem*> summary;
 };
 
 

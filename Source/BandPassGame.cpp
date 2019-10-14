@@ -13,16 +13,16 @@
 BandPassGame::BandPassGame(int numChannels)
 {
     for(int lc=0; lc<numChannels; lc++) {
+        // Add filter
         IIRFilter* filter = new IIRFilter();
         filters.add(filter);
     }
-
 }
 
 BandPassGame::~BandPassGame()
 {
-    for(int lc=0; lc<filters.size(); lc++) {
-        delete filters[lc];
+    for(IIRFilter* filter: filters) {
+        delete filter;
     }
 }
 
@@ -32,11 +32,11 @@ bool BandPassGame::isStarted() {
 
 void BandPassGame::start()
 {
-    int index = random.nextInt(7);
+    int index = random.nextInt(freqList.size());
     currentFreq = freqList[index];
 
-    for(int lc=0; lc<filters.size(); lc++) {
-        filters[lc]->setCoefficients(IIRCoefficients::makeBandPass(sampleRate, currentFreq, 5.0f));
+    for (IIRFilter* filter: filters) {
+        filter->setCoefficients(IIRCoefficients::makeBandPass(sampleRate, currentFreq, 5.0f));
     }
     started = true;
     answeredFreq = 0.0f;
@@ -74,6 +74,6 @@ float BandPassGame::getAnswer() {
     return answeredFreq;
 }
 
-float* BandPassGame::getFreqList() {
+Array<float> BandPassGame::getFreqList() {
     return freqList;
 }

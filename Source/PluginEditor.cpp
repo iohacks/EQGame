@@ -12,20 +12,26 @@
 #include "PluginEditor.h"
 
 //==============================================================================
-GoldenEarsEqAudioProcessorEditor::GoldenEarsEqAudioProcessorEditor (GoldenEarsEqAudioProcessor& p)
-    : AudioProcessorEditor (&p), processor (p)
-{
+GoldenEarsEqAudioProcessorEditor::GoldenEarsEqAudioProcessorEditor(GoldenEarsEqAudioProcessor &p)
+        : AudioProcessorEditor(&p), processor(p) {
+    // Add the freqList header
+    lblFreqListHeader.setText("Select the Band Pass Frequency", NotificationType::sendNotification);
+    lblFreqListHeader.setJustificationType(Justification::centred);
+    lblFreqListHeader.setBounds(10, 10, 620, 50);
+    addAndMakeVisible(lblFreqListHeader);
+
     // Initialize answer list
     int x = 10;
-    int y = 10;
+    int y = 70;
     int width = 80;
     int height = 40;
-    for(int lc=0; lc<7; lc++) {
-        float freq = processor.bandPassGame.getFreqList()[lc];
-        TextButton* button = new TextButton(String((int) freq));
+
+    Array<float> freqList = processor.bandPassGame.getFreqList();
+    for (float freq: freqList) {
+        TextButton *button = new TextButton(String((int) freq));
         button->setBounds(x, y, width, height);
         x += width + 10;
-        button->onClick = [this, freq] () {
+        button->onClick = [this, freq]() {
             processor.bandPassGame.setAnswer(freq);
             repaint();
         };
@@ -35,36 +41,39 @@ GoldenEarsEqAudioProcessorEditor::GoldenEarsEqAudioProcessorEditor (GoldenEarsEq
 
     // Initialize the start button
     btnStart.setButtonText("Start");
-    btnStart.setBounds(10, 10, 100, 100);
-    btnStart.onClick = [this] () {
+    btnStart.setBounds(10, 10, 620, 100);
+    btnStart.onClick = [this]() {
         processor.bandPassGame.start();
         repaint();
     };
     addAndMakeVisible(btnStart);
 
     // Initialize result
-    lblResult.setBounds(10, 110, 500, 50);
+    lblResult.setBounds(10, 110, 620, 50);
+    lblResult.setJustificationType(Justification::centred);
     addAndMakeVisible(lblResult);
 
-    setSize (800, 300);
+    setSize(640, 300);
 }
 
-GoldenEarsEqAudioProcessorEditor::~GoldenEarsEqAudioProcessorEditor()
-{
+GoldenEarsEqAudioProcessorEditor::~GoldenEarsEqAudioProcessorEditor() {
+    for (TextButton *button: btnFreqList) {
+        delete button;
+    }
 }
 
 //==============================================================================
-void GoldenEarsEqAudioProcessorEditor::paint (Graphics& g)
-{
+void GoldenEarsEqAudioProcessorEditor::paint(Graphics &g) {
     bool gameStarted = processor.bandPassGame.isStarted();
 
     // handle answer list rendering
-    for (int lc=0; lc<btnFreqList.size(); lc++) {
-        btnFreqList[lc]->setVisible(gameStarted? true: false);
+    lblFreqListHeader.setVisible(gameStarted ? true : false);
+    for (TextButton *button: btnFreqList) {
+        button->setVisible(gameStarted ? true : false);
     }
 
     // handle start button rendering
-    btnStart.setVisible(gameStarted? false : true);
+    btnStart.setVisible(gameStarted ? false : true);
 
     // handle result rendering
     if (gameStarted) {
@@ -73,9 +82,9 @@ void GoldenEarsEqAudioProcessorEditor::paint (Graphics& g)
         float correctAnswer = processor.bandPassGame.getCurrentFreq();
         float givenAnswer = processor.bandPassGame.getAnswer();
         bool isCorrect = correctAnswer == givenAnswer;
-        String message = isCorrect? "You are correct." : "It's " + String(correctAnswer) + ". (Your answer: " + String(givenAnswer) + ")";
+        String message = isCorrect ? "You are correct." : "It's " + String(correctAnswer) + ". (Your answer: " + String(givenAnswer) + ")";
 
-        lblResult.setColour(Label::textColourId, isCorrect? Colour(0, 255, 0) : Colour(255, 0, 0));
+        lblResult.setColour(Label::textColourId, isCorrect ? Colour(0, 255, 0) : Colour(255, 0, 0));
         if (correctAnswer == 0.0f) {
             lblResult.setVisible(false);
         } else {
@@ -85,8 +94,7 @@ void GoldenEarsEqAudioProcessorEditor::paint (Graphics& g)
     }
 }
 
-void GoldenEarsEqAudioProcessorEditor::resized()
-{
+void GoldenEarsEqAudioProcessorEditor::resized() {
     // This is generally where you'll want to lay out the positions of any
     // subcomponents in your editor..
 }
