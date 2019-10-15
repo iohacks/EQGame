@@ -122,7 +122,7 @@ void GoldenEarsEqAudioProcessorEditor::paint(Graphics &g) {
     }
 
     // show the summary
-    String summaryText = "Overall Correctness: " + String((int) getWinningPct()) + "%";
+    String summaryText = "Accuracy: " + String((int) getWinningPct()) + "%";
     lblSummary.setText(summaryText, NotificationType::sendNotification);
     lblSummary.setVisible(true);
 }

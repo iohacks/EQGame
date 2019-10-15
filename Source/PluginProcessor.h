@@ -61,6 +61,7 @@ public:
     AudioParameterFloat* makeUpGain;
 
 private:
+    String freqToString(float);
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (GoldenEarsEqAudioProcessor)
 };

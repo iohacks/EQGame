@@ -160,18 +160,40 @@ AudioProcessorEditor* GoldenEarsEqAudioProcessor::createEditor()
     return new GoldenEarsEqAudioProcessorEditor (*this);
 }
 
+String GoldenEarsEqAudioProcessor::freqToString(float freq) {
+    return "freq" + String((int) freq);
+}
+
 //==============================================================================
 void GoldenEarsEqAudioProcessor::getStateInformation (MemoryBlock& destData)
 {
-    // You should use this method to store your parameters in the memory block.
-    // You could do that either as raw data, or use the XML or ValueTree classes
-    // as intermediaries to make it easy to save and load complex data.
+    XmlElement xmlSummary ("summary");
+    for (auto item: bandPassGame.getSummary()) {
+        auto xmlItem = new XmlElement(freqToString(item->freq));
+        xmlItem->setAttribute("freq", item->freq);
+        xmlItem->setAttribute("totalAttempts", item->totalAttempts);
+        xmlItem->setAttribute("totalWins", item->totalWins);
+
+        xmlSummary.addChildElement(xmlItem);
+    }
+
+    copyXmlToBinary(xmlSummary, destData);
 }
 
 void GoldenEarsEqAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
 {
-    // You should use this method to restore your parameters from this memory block,
-    // whose contents will have been created by the getStateInformation() call.
+    auto xmlSummary = getXmlFromBinary(data, sizeInBytes);
+    if (xmlSummary != nullptr && xmlSummary->hasTagName("summary")) {
+        for (auto item: bandPassGame.getSummary()) {
+            auto xmlItem = xmlSummary->getChildByName(freqToString(item->freq));
+            if (xmlItem) {
+                item->totalWins = xmlItem->getDoubleAttribute("totalWins", 0.0f);
+                item->totalAttempts = xmlItem->getDoubleAttribute("totalAttempts", 0.0f);
+            } else {
+                DBG("No XML item found for freq: " + String(item->freq));
+            }
+        }
+    }
 }
 
 //==============================================================================
