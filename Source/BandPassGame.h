@@ -35,6 +35,7 @@ public:
     // For Processor
     void setSampleRate(float sampleRate);
     void apply(AudioBuffer<float>& buffer, int makeUpGain);
+    Array<SummaryItem*> getSummary();
 
 private:
     Array<IIRFilter*> filters;
@@ -44,7 +45,7 @@ private:
     Array<float> freqList = {125.0f, 250.0f, 500.0f, 1000.0f, 2000.0f, 4000.0f, 8000.0f};
     Random random {Time::currentTimeMillis()};
     float sampleRate;
-    HashMap<float, SummaryItem*> summary;
+    Array<SummaryItem*> summary;
 };
 
 

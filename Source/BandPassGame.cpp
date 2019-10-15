@@ -17,6 +17,15 @@ BandPassGame::BandPassGame(int numChannels)
         IIRFilter* filter = new IIRFilter();
         filters.add(filter);
     }
+
+    // initialize summary
+    for(auto freq: freqList) {
+        auto summaryItem = new SummaryItem;
+        summaryItem->freq = freq;
+        summaryItem->totalAttempts = 0;
+        summaryItem->totalWins = 0;
+        summary.add(summaryItem);
+    }
 }
 
 BandPassGame::~BandPassGame()
@@ -24,6 +33,15 @@ BandPassGame::~BandPassGame()
     for(IIRFilter* filter: filters) {
         delete filter;
     }
+
+    // clean summary items
+    for(auto item: summary) {
+        delete item;
+    }
+}
+
+Array<SummaryItem*> BandPassGame::getSummary() {
+    return summary;
 }
 
 bool BandPassGame::isStarted() {
@@ -52,6 +70,18 @@ void BandPassGame::setSampleRate(float s) {
 void BandPassGame::setAnswer(float freq) {
     answeredFreq = freq;
     started = false;
+
+    // update the summary
+    SummaryItem* item;
+    for(auto i: summary) {
+        if (i->freq == currentFreq) {
+            item = i;
+            break;
+        }
+    }
+
+    item->totalAttempts += 1;
+    item->totalWins += answeredFreq == currentFreq ? 1 : 0;
 }
 
 void BandPassGame::apply(AudioBuffer<float>& buffer, int makeUpGain) {

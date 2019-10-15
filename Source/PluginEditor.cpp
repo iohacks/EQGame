@@ -16,6 +16,7 @@ GoldenEarsEqAudioProcessorEditor::GoldenEarsEqAudioProcessorEditor(GoldenEarsEqA
         : AudioProcessorEditor(&p), processor(p) {
     // Add the freqList header
     lblFreqListHeader.setText("Select the Band Pass Frequency", NotificationType::sendNotification);
+    lblFreqListHeader.setColour(Label::textColourId, Colour(200, 200, 200));
     lblFreqListHeader.setJustificationType(Justification::centred);
     lblFreqListHeader.setBounds(10, 10, 620, 50);
     addAndMakeVisible(lblFreqListHeader);
@@ -40,8 +41,9 @@ GoldenEarsEqAudioProcessorEditor::GoldenEarsEqAudioProcessorEditor(GoldenEarsEqA
     }
 
     // Initialize the start button
-    btnStart.setButtonText("Start");
+    btnStart.setButtonText("Start Training");
     btnStart.setBounds(10, 10, 620, 100);
+    btnStart.setColour(TextButton::textColourOnId, Colour(200, 200, 200));
     btnStart.onClick = [this]() {
         processor.bandPassGame.start();
         repaint();
@@ -53,6 +55,12 @@ GoldenEarsEqAudioProcessorEditor::GoldenEarsEqAudioProcessorEditor(GoldenEarsEqA
     lblResult.setJustificationType(Justification::centred);
     addAndMakeVisible(lblResult);
 
+    // Initialize summary
+    lblSummary.setBounds(10, 250, 620, 50);
+    lblSummary.setJustificationType(Justification::right);
+    lblSummary.setColour(Label::textColourId, Colour(100, 100, 100));
+    addAndMakeVisible(lblSummary);
+
     setSize(640, 300);
 }
 
@@ -63,7 +71,26 @@ GoldenEarsEqAudioProcessorEditor::~GoldenEarsEqAudioProcessorEditor() {
 }
 
 //==============================================================================
+
+float GoldenEarsEqAudioProcessorEditor::getWinningPct() {
+    auto summary = processor.bandPassGame.getSummary();
+    int totalWins = 0;
+    int totalAttempts = 0;
+
+    for (auto item: summary) {
+        totalWins += item->totalWins;
+        totalAttempts += item->totalAttempts;
+    }
+
+    if (totalAttempts == 0) {
+        return 0;
+    }
+
+    return (totalWins / (float) (totalAttempts)) * 100;
+}
+
 void GoldenEarsEqAudioProcessorEditor::paint(Graphics &g) {
+    g.fillAll(Colour(30, 30, 30));
     bool gameStarted = processor.bandPassGame.isStarted();
 
     // handle answer list rendering
@@ -84,14 +111,20 @@ void GoldenEarsEqAudioProcessorEditor::paint(Graphics &g) {
         bool isCorrect = correctAnswer == givenAnswer;
         String message = isCorrect ? "You are correct." : "It's " + String(correctAnswer) + ". (Your answer: " + String(givenAnswer) + ")";
 
-        lblResult.setColour(Label::textColourId, isCorrect ? Colour(0, 255, 0) : Colour(255, 0, 0));
+        lblResult.setColour(Label::textColourId, isCorrect ? Colour(50, 200, 50) : Colour(200, 0, 0));
         if (correctAnswer == 0.0f) {
             lblResult.setVisible(false);
+            lblSummary.setVisible(false);
         } else {
             lblResult.setText(message, NotificationType::sendNotification);
             lblResult.setVisible(true);
         }
     }
+
+    // show the summary
+    String summaryText = "Overall Correctness: " + String((int) getWinningPct()) + "%";
+    lblSummary.setText(summaryText, NotificationType::sendNotification);
+    lblSummary.setVisible(true);
 }
 
 void GoldenEarsEqAudioProcessorEditor::resized() {

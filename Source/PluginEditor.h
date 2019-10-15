@@ -16,6 +16,7 @@
 //==============================================================================
 /**
 */
+
 class GoldenEarsEqAudioProcessorEditor  : public AudioProcessorEditor
 {
 public:
@@ -31,9 +32,13 @@ private:
     // access the processor object that created it.
     GoldenEarsEqAudioProcessor& processor;
 
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (GoldenEarsEqAudioProcessorEditor)
     TextButton btnStart;
     Label lblResult;
     Label lblFreqListHeader;
+    Label lblSummary;
     Array<TextButton*> btnFreqList;
+
+    float getWinningPct();
+
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (GoldenEarsEqAudioProcessorEditor)
 };
