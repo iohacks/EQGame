@@ -13,17 +13,17 @@ A simple Audio Plugin to improve Your EQ listening skills.<br/>
 
 ### Installation
 
-Download the relevant plugin for your operating system and DAW.<br/>
+[Download](https://github.com/iohacks/GoldenEarsEQ/releases) the relevant plugin for your operating system and DAW.<br/>
 (Sorry, no Pro Tools support yet.)
 
 Then copy it to the relevant plugin directory in your PC or Mac.
 
-** Mac OS **
+**Mac OS**
 
 * VST3 - `~/Library/Audio/Plug-Ins/VST3`
-* AU - `~/Library/Audio/Plug-Ins/Components`
+* AudioUnit(Component) - `~/Library/Audio/Plug-Ins/Components`
 
-** Windows **
+**Windows**
 
 * VST3 - `C:\Program Files\Common Files\VST3`
 
