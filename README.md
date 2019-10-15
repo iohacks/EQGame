@@ -3,7 +3,7 @@
 A simple Audio Plugin to improve Your EQ listening skills.<br/>
 (Works with almost all DAWs)
 
-### Features
+## Features
 
 * A Game with detecting octaves via band pass filtering
 * Has a Simple UI, but designed for better User Experience
@@ -11,7 +11,7 @@ A simple Audio Plugin to improve Your EQ listening skills.<br/>
 * Sync the accuracy to the DAW. (So, you can keep your progress)
 * Since it's a DAW plugin, you can create various lesson plans. (For Audio tracks, MIDI tracks, Function generators, Direct from the sound card, etc)
 
-### Installation
+## Installation
 
 [Download](https://github.com/iohacks/GoldenEarsEQ/releases) the relevant plugin for your operating system and DAW.<br/>
 (Sorry, no Pro Tools support yet.)
@@ -27,7 +27,7 @@ Then copy it to the relevant plugin directory in your PC or Mac.
 
 * VST3 - `C:\Program Files\Common Files\VST3`
 
-### Future Plans
+## Future Plans
 
 * Different game modes: Low Pass, High Pass, Bell Curve, Shelfs
 * Inspect your game play and idenify where you need to focus more
