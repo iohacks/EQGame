@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<JUCERPROJECT id="CUSkSs" name="GoldenEarsEQ" projectType="audioplug" jucerVersion="5.4.4"
-              pluginFormats="buildAU,buildAUv3,buildVST3" bundleIdentifier="io.iohacks.GoldenEarsEQ"
+<JUCERPROJECT id="CUSkSs" name="EQGame" projectType="audioplug" jucerVersion="5.4.4"
+              pluginFormats="buildAU,buildVST3" bundleIdentifier="io.iohacks.eqgame"
               pluginManufacturer="iohacks" pluginManufacturerCode="IOHX" pluginCode="IOHX"
-              aaxIdentifier="io.iohacks.GoldenEarsEQ" companyName="iOHacks"
-              companyWebsite="https://iohacks.io" companyEmail="arunoda.susiripala@gmail.com">
-  <MAINGROUP id="zxTz5T" name="GoldenEarsEQ">
+              aaxIdentifier="io.iohacks.eqgame" companyName="iOHacks" companyWebsite="https://iohacks.io"
+              companyEmail="arunoda.susiripala@gmail.com">
+  <MAINGROUP id="zxTz5T" name="EQGame">
     <GROUP id="{823F3A38-AA8C-2097-F571-25106D628F01}" name="Source">
       <FILE id="SwYJ0q" name="BandPassGame.cpp" compile="1" resource="0"
             file="Source/BandPassGame.cpp"/>

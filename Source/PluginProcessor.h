@@ -16,12 +16,12 @@
 //==============================================================================
 /**
 */
-class GoldenEarsEqAudioProcessor  : public AudioProcessor
+class EQGameAudioProcessor  : public AudioProcessor
 {
 public:
     //==============================================================================
-    GoldenEarsEqAudioProcessor();
-    ~GoldenEarsEqAudioProcessor();
+    EQGameAudioProcessor();
+    ~EQGameAudioProcessor();
 
     //==============================================================================
     void prepareToPlay (double sampleRate, int samplesPerBlock) override;
@@ -63,5 +63,5 @@ public:
 private:
     String freqToString(float);
     //==============================================================================
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (GoldenEarsEqAudioProcessor)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (EQGameAudioProcessor)
 };

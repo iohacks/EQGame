@@ -12,7 +12,7 @@
 #include "PluginEditor.h"
 
 //==============================================================================
-GoldenEarsEqAudioProcessor::GoldenEarsEqAudioProcessor()
+EQGameAudioProcessor::EQGameAudioProcessor()
 #ifndef JucePlugin_PreferredChannelConfigurations
      : AudioProcessor (BusesProperties()
                      #if ! JucePlugin_IsMidiEffect
@@ -27,17 +27,17 @@ GoldenEarsEqAudioProcessor::GoldenEarsEqAudioProcessor()
     addParameter(makeUpGain = new AudioParameterFloat("makeUpGain", "Make Up Gain", 1.0f, 10.0f, 2.0f));
 }
 
-GoldenEarsEqAudioProcessor::~GoldenEarsEqAudioProcessor()
+EQGameAudioProcessor::~EQGameAudioProcessor()
 {
 }
 
 //==============================================================================
-const String GoldenEarsEqAudioProcessor::getName() const
+const String EQGameAudioProcessor::getName() const
 {
     return JucePlugin_Name;
 }
 
-bool GoldenEarsEqAudioProcessor::acceptsMidi() const
+bool EQGameAudioProcessor::acceptsMidi() const
 {
    #if JucePlugin_WantsMidiInput
     return true;
@@ -46,7 +46,7 @@ bool GoldenEarsEqAudioProcessor::acceptsMidi() const
    #endif
 }
 
-bool GoldenEarsEqAudioProcessor::producesMidi() const
+bool EQGameAudioProcessor::producesMidi() const
 {
    #if JucePlugin_ProducesMidiOutput
     return true;
@@ -55,7 +55,7 @@ bool GoldenEarsEqAudioProcessor::producesMidi() const
    #endif
 }
 
-bool GoldenEarsEqAudioProcessor::isMidiEffect() const
+bool EQGameAudioProcessor::isMidiEffect() const
 {
    #if JucePlugin_IsMidiEffect
     return true;
@@ -64,51 +64,51 @@ bool GoldenEarsEqAudioProcessor::isMidiEffect() const
    #endif
 }
 
-double GoldenEarsEqAudioProcessor::getTailLengthSeconds() const
+double EQGameAudioProcessor::getTailLengthSeconds() const
 {
     return 0.0;
 }
 
-int GoldenEarsEqAudioProcessor::getNumPrograms()
+int EQGameAudioProcessor::getNumPrograms()
 {
     return 1;   // NB: some hosts don't cope very well if you tell them there are 0 programs,
                 // so this should be at least 1, even if you're not really implementing programs.
 }
 
-int GoldenEarsEqAudioProcessor::getCurrentProgram()
+int EQGameAudioProcessor::getCurrentProgram()
 {
     return 0;
 }
 
-void GoldenEarsEqAudioProcessor::setCurrentProgram (int index)
+void EQGameAudioProcessor::setCurrentProgram (int index)
 {
 }
 
-const String GoldenEarsEqAudioProcessor::getProgramName (int index)
+const String EQGameAudioProcessor::getProgramName (int index)
 {
     return {};
 }
 
-void GoldenEarsEqAudioProcessor::changeProgramName (int index, const String& newName)
+void EQGameAudioProcessor::changeProgramName (int index, const String& newName)
 {
 }
 
 //==============================================================================
-void GoldenEarsEqAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
+void EQGameAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
     // Use this method as the place to do any pre-playback
     // initialisation that you need..
     bandPassGame.setSampleRate(sampleRate);
 }
 
-void GoldenEarsEqAudioProcessor::releaseResources()
+void EQGameAudioProcessor::releaseResources()
 {
     // When playback stops, you can use this as an opportunity to free up any
     // spare memory, etc.
 }
 
 #ifndef JucePlugin_PreferredChannelConfigurations
-bool GoldenEarsEqAudioProcessor::isBusesLayoutSupported (const BusesLayout& layouts) const
+bool EQGameAudioProcessor::isBusesLayoutSupported (const BusesLayout& layouts) const
 {
   #if JucePlugin_IsMidiEffect
     ignoreUnused (layouts);
@@ -131,7 +131,7 @@ bool GoldenEarsEqAudioProcessor::isBusesLayoutSupported (const BusesLayout& layo
 }
 #endif
 
-void GoldenEarsEqAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& midiMessages)
+void EQGameAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& midiMessages)
 {
     ScopedNoDenormals noDenormals;
     auto totalNumInputChannels  = getTotalNumInputChannels();
@@ -150,22 +150,22 @@ void GoldenEarsEqAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiB
 }
 
 //==============================================================================
-bool GoldenEarsEqAudioProcessor::hasEditor() const
+bool EQGameAudioProcessor::hasEditor() const
 {
     return true; // (change this to false if you choose to not supply an editor)
 }
 
-AudioProcessorEditor* GoldenEarsEqAudioProcessor::createEditor()
+AudioProcessorEditor* EQGameAudioProcessor::createEditor()
 {
-    return new GoldenEarsEqAudioProcessorEditor (*this);
+    return new EQGameAudioProcessorEditor (*this);
 }
 
-String GoldenEarsEqAudioProcessor::freqToString(float freq) {
+String EQGameAudioProcessor::freqToString(float freq) {
     return "freq" + String((int) freq);
 }
 
 //==============================================================================
-void GoldenEarsEqAudioProcessor::getStateInformation (MemoryBlock& destData)
+void EQGameAudioProcessor::getStateInformation (MemoryBlock& destData)
 {
     XmlElement xmlSummary ("summary");
     for (auto item: bandPassGame.getSummary()) {
@@ -180,7 +180,7 @@ void GoldenEarsEqAudioProcessor::getStateInformation (MemoryBlock& destData)
     copyXmlToBinary(xmlSummary, destData);
 }
 
-void GoldenEarsEqAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
+void EQGameAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
 {
     auto xmlSummary = getXmlFromBinary(data, sizeInBytes);
     if (xmlSummary != nullptr && xmlSummary->hasTagName("summary")) {
@@ -200,5 +200,5 @@ void GoldenEarsEqAudioProcessor::setStateInformation (const void* data, int size
 // This creates new instances of the plugin..
 AudioProcessor* JUCE_CALLTYPE createPluginFilter()
 {
-    return new GoldenEarsEqAudioProcessor();
+    return new EQGameAudioProcessor();
 }

@@ -17,11 +17,11 @@
 /**
 */
 
-class GoldenEarsEqAudioProcessorEditor  : public AudioProcessorEditor
+class EQGameAudioProcessorEditor  : public AudioProcessorEditor
 {
 public:
-    GoldenEarsEqAudioProcessorEditor (GoldenEarsEqAudioProcessor&);
-    ~GoldenEarsEqAudioProcessorEditor();
+    EQGameAudioProcessorEditor (EQGameAudioProcessor&);
+    ~EQGameAudioProcessorEditor();
 
     //==============================================================================
     void paint (Graphics&) override;
@@ -30,7 +30,7 @@ public:
 private:
     // This reference is provided as a quick way for your editor to
     // access the processor object that created it.
-    GoldenEarsEqAudioProcessor& processor;
+    EQGameAudioProcessor& processor;
 
     TextButton btnStart;
     Label lblResult;
@@ -40,5 +40,5 @@ private:
 
     float getWinningPct();
 
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (GoldenEarsEqAudioProcessorEditor)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (EQGameAudioProcessorEditor)
 };

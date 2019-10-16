@@ -12,7 +12,7 @@
 #include "PluginEditor.h"
 
 //==============================================================================
-GoldenEarsEqAudioProcessorEditor::GoldenEarsEqAudioProcessorEditor(GoldenEarsEqAudioProcessor &p)
+EQGameAudioProcessorEditor::EQGameAudioProcessorEditor(EQGameAudioProcessor &p)
         : AudioProcessorEditor(&p), processor(p) {
     // Add the freqList header
     lblFreqListHeader.setText("Select the Band Pass Frequency", NotificationType::sendNotification);
@@ -64,7 +64,7 @@ GoldenEarsEqAudioProcessorEditor::GoldenEarsEqAudioProcessorEditor(GoldenEarsEqA
     setSize(640, 300);
 }
 
-GoldenEarsEqAudioProcessorEditor::~GoldenEarsEqAudioProcessorEditor() {
+EQGameAudioProcessorEditor::~EQGameAudioProcessorEditor() {
     for (TextButton *button: btnFreqList) {
         delete button;
     }
@@ -72,7 +72,7 @@ GoldenEarsEqAudioProcessorEditor::~GoldenEarsEqAudioProcessorEditor() {
 
 //==============================================================================
 
-float GoldenEarsEqAudioProcessorEditor::getWinningPct() {
+float EQGameAudioProcessorEditor::getWinningPct() {
     auto summary = processor.bandPassGame.getSummary();
     int totalWins = 0;
     int totalAttempts = 0;
@@ -89,7 +89,7 @@ float GoldenEarsEqAudioProcessorEditor::getWinningPct() {
     return (totalWins / (float) (totalAttempts)) * 100;
 }
 
-void GoldenEarsEqAudioProcessorEditor::paint(Graphics &g) {
+void EQGameAudioProcessorEditor::paint(Graphics &g) {
     g.fillAll(Colour(30, 30, 30));
     bool gameStarted = processor.bandPassGame.isStarted();
 
@@ -127,7 +127,7 @@ void GoldenEarsEqAudioProcessorEditor::paint(Graphics &g) {
     lblSummary.setVisible(true);
 }
 
-void GoldenEarsEqAudioProcessorEditor::resized() {
+void EQGameAudioProcessorEditor::resized() {
     // This is generally where you'll want to lay out the positions of any
     // subcomponents in your editor..
 }
