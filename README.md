@@ -1,9 +1,9 @@
-# GoldenEarsEQ
+# EQGame
 
 A simple Audio Plugin to improve Your EQ listening skills.<br/>
 (Works with almost all DAWs)
 
-![GoldenEarsEQ - Ear Training Audio Plugin](https://user-images.githubusercontent.com/50838/66863723-46f19c80-efb1-11e9-9143-0be466445ea5.png)
+![EQGame - EQ Ear Training Audio Plugin](https://user-images.githubusercontent.com/50838/66863723-46f19c80-efb1-11e9-9143-0be466445ea5.png)
 
 
 ## Features
