@@ -34,6 +34,7 @@ Then copy it to the relevant plugin directory in your PC or Mac.
 
 * Different game modes: Low Pass, High Pass, Bell Curve, Shelfs
 * Inspect your game play and idenify where you need to focus more
-* A game play mode to improve your weakness based on above
-* More customizations
-* UI Improvements
+* A game play mode to improve your weakness based on above metrics
+* More game play customizations
+* UI improvements
+* Assignment mode for Instructors
