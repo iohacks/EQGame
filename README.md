@@ -9,7 +9,7 @@ A simple Audio Plugin to improve Your EQ listening skills.<br/>
 ## Features
 
 * A Game with detecting octaves via band pass filtering
-* Has a Simple UI, but designed for better User Experience
+* Has a Simple UI, but designed for better user experience
 * Keep track of the accuracy of the game play
 * Sync the accuracy to the DAW. (So, you can keep your progress)
 * Since it's a DAW plugin, you can create various lesson plans. (For Audio tracks, MIDI tracks, Function generators, Direct from the sound card, etc)
