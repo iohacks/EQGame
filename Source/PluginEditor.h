@@ -37,7 +37,9 @@ private:
     Label lblFreqListHeader;
     Label lblSummary;
     Array<TextButton*> btnFreqList;
+    Label lblRepoLink;
 
+    HyperlinkButton btn;
     float getWinningPct();
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (EQGameAudioProcessorEditor)

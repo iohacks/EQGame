@@ -14,16 +14,23 @@
 //==============================================================================
 EQGameAudioProcessorEditor::EQGameAudioProcessorEditor(EQGameAudioProcessor &p)
         : AudioProcessorEditor(&p), processor(p) {
+    // Initialize repoLink
+    lblRepoLink.setText("iohacks/EQGame", NotificationType::sendNotification);
+    lblRepoLink.setBounds(10, 0, 300, 50);
+    lblRepoLink.setColour(Label::textColourId, Colour(100, 100, 100));
+    lblRepoLink.setJustificationType(Justification::left);
+    addAndMakeVisible(lblRepoLink);
+
     // Add the freqList header
     lblFreqListHeader.setText("Select the Band Pass Frequency", NotificationType::sendNotification);
     lblFreqListHeader.setColour(Label::textColourId, Colour(200, 200, 200));
     lblFreqListHeader.setJustificationType(Justification::centred);
-    lblFreqListHeader.setBounds(10, 10, 620, 50);
+    lblFreqListHeader.setBounds(10, 70, 620, 50);
     addAndMakeVisible(lblFreqListHeader);
 
     // Initialize answer list
     int x = 10;
-    int y = 70;
+    int y = 130;
     int width = 80;
     int height = 40;
 
@@ -42,7 +49,7 @@ EQGameAudioProcessorEditor::EQGameAudioProcessorEditor(EQGameAudioProcessor &p)
 
     // Initialize the start button
     btnStart.setButtonText("Start Training");
-    btnStart.setBounds(10, 10, 620, 100);
+    btnStart.setBounds(40, 90, 560, 100);
     btnStart.setColour(TextButton::textColourOnId, Colour(200, 200, 200));
     btnStart.onClick = [this]() {
         processor.bandPassGame.start();
@@ -51,12 +58,12 @@ EQGameAudioProcessorEditor::EQGameAudioProcessorEditor(EQGameAudioProcessor &p)
     addAndMakeVisible(btnStart);
 
     // Initialize result
-    lblResult.setBounds(10, 110, 620, 50);
+    lblResult.setBounds(10, 190, 620, 50);
     lblResult.setJustificationType(Justification::centred);
     addAndMakeVisible(lblResult);
 
     // Initialize summary
-    lblSummary.setBounds(10, 250, 620, 50);
+    lblSummary.setBounds(300, 250, 330, 50);
     lblSummary.setJustificationType(Justification::right);
     lblSummary.setColour(Label::textColourId, Colour(100, 100, 100));
     addAndMakeVisible(lblSummary);
@@ -111,7 +118,7 @@ void EQGameAudioProcessorEditor::paint(Graphics &g) {
         bool isCorrect = correctAnswer == givenAnswer;
         String message = isCorrect ? "You are correct." : "It's " + String(correctAnswer) + ". (Your answer: " + String(givenAnswer) + ")";
 
-        lblResult.setColour(Label::textColourId, isCorrect ? Colour(50, 200, 50) : Colour(200, 0, 0));
+        lblResult.setColour(Label::textColourId, isCorrect ? Colour(50, 200, 50) : Colour(255, 58, 58));
         if (correctAnswer == 0.0f) {
             lblResult.setVisible(false);
             lblSummary.setVisible(false);
